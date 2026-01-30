@@ -179,6 +179,43 @@ rails g calckit:install
 rails g calckit:calculator shipping
 ```
 
+## Roadmap
+
+Potential future enhancements:
+
+### Input Enhancements
+- [ ] Input groups for organizing related fields
+- [ ] Conditional inputs (show/hide based on other values)
+- [ ] Custom validators beyond min/max
+- [ ] More types: `:textarea`, `:radio`, `:checkbox_group`, `:range`
+
+### Output Enhancements
+- [ ] Custom formatters
+- [ ] Conditional outputs (only show if value present)
+- [ ] Output groups/sections
+
+### Calculator Features
+- [ ] Calculator descriptions for index pages
+- [ ] Categories/tags for organizing calculators
+- [ ] Comparison mode (side-by-side with different inputs)
+- [ ] Calculator dependencies (one calculator feeds into another)
+
+### Export & Sharing
+- [ ] PDF export of results
+- [ ] CSV export for saved calculations
+- [ ] Shareable result links
+- [ ] Embeddable calculator widgets
+
+### Developer Experience
+- [ ] Controller scaffold generator
+- [ ] API endpoint generator
+- [ ] JavaScript client for real-time calculation preview
+- [ ] Form builder integration (SimpleForm, Formtastic)
+
+### Testing
+- [ ] Calculator test helpers
+- [ ] Shared examples for common patterns
+
 ## License
 
 MIT License
