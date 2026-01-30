@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+Calckit.configure do |config|
+  # Path to calculator classes (relative to Rails.root)
+  # config.calculators_path = "app/calculators"
+
+  # Automatically register calculators on load
+  # config.auto_register = true
+<% if scope_method -%>
+
+  # Multi-tenancy scope method
+  config.scope_method = :<%= scope_method %>
+<% else -%>
+
+  # Multi-tenancy scope method (e.g., :current_account, :current_user)
+  # config.scope_method = nil
+<% end -%>
+
+  # Enable Turbo Streams for form responses
+  # config.enable_turbo_streams = true
+
+  # Enable saving calculations to the database
+  # config.save_calculations = true
+
+  # Warn when loading a calculation with a different version
+  # config.warn_on_version_mismatch = true
+
+  # Default CSS classes for form elements
+  # config.default_form_classes = {
+  #   input: "form-control",
+  #   label: "block text-sm font-medium mb-1",
+  #   error: "text-red-500 text-sm mt-1",
+  #   submit: "btn btn-primary"
+  # }
+end

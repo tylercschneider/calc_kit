@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+class CreateCalculations < ActiveRecord::Migration<%= migration_version %>
+  def change
+    create_table :calculations do |t|
+<% if scope_method -%>
+      t.references :<%= scope_method.to_s.sub("current_", "") %>, null: true, foreign_key: true
+<% end -%>
+      t.string :calculator_type, null: false
+      t.string :calculator_version, null: false
+      t.jsonb :inputs, null: false, default: {}
+      t.jsonb :outputs, null: false, default: {}
+
+      t.timestamps
+    end
+
+    add_index :calculations, :calculator_type
+<% if scope_method -%>
+    add_index :calculations, [:<%= scope_method.to_s.sub("current_", "") %>_id, :calculator_type]
+<% end -%>
+  end
+end
