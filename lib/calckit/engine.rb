@@ -9,9 +9,9 @@ module Calckit
     initializer "calckit.eager_load_calculators" do |app|
       app.config.to_prepare do
         if Calckit.configuration.auto_register
-          calculators_path = Rails.root.join(Calckit.configuration.calculators_path)
+          calculators_path = ::Rails.root.join(Calckit.configuration.calculators_path)
           if calculators_path.exist?
-            Rails.autoloaders.main.eager_load_dir(calculators_path)
+            ::Rails.autoloaders.main.eager_load_dir(calculators_path)
           end
         end
       end
