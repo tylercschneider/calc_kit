@@ -35,4 +35,12 @@ class Calckit::ViewHelpersTest < Minitest::Test
   def test_format_output_default_type
     assert_equal "anything", calckit_format_output("anything", :unknown)
   end
+
+  def test_resolve_default_with_static_value
+    assert_equal 42, calckit_resolve_default(42)
+  end
+
+  def test_resolve_default_with_proc
+    assert_equal "computed", calckit_resolve_default(-> { "computed" })
+  end
 end
