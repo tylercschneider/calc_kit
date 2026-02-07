@@ -10,6 +10,8 @@ module Calckit
 
     # Format an output value based on its type
     def calckit_format_output(value, type)
+      return "" if value.nil?
+
       case type
       when :date
         value&.respond_to?(:to_fs) ? value.to_fs(:long) : value.to_s

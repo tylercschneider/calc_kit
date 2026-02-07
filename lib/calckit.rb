@@ -9,6 +9,8 @@ require_relative "calckit/registry"
 require_relative "calckit/base"
 
 module Calckit
+  class NotFoundError < StandardError; end
+
   class << self
     def configuration
       @configuration ||= Configuration.new

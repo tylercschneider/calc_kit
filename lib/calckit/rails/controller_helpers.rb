@@ -11,9 +11,9 @@ module Calckit
 
     private
 
-    # Find a calculator class by slug
+    # Find a calculator class by slug, raises if not found
     def find_calculator_class(slug)
-      Calckit.find(slug)
+      Calckit.find(slug) || raise(Calckit::NotFoundError, "Calculator not found: #{slug}")
     end
 
     # Build a calculator instance from params
