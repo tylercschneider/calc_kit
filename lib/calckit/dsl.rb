@@ -79,14 +79,19 @@ module Calckit
 
       private
 
+      VALID_INPUT_TYPES = %i[string integer decimal date boolean select].freeze
+
       def type_for_attribute(type)
+        unless VALID_INPUT_TYPES.include?(type)
+          raise ArgumentError, "Unknown input type: #{type.inspect}. Valid types: #{VALID_INPUT_TYPES.join(", ")}"
+        end
+
         case type
         when :date then :date
         when :integer then :integer
         when :decimal then :decimal
         when :boolean then :boolean
         when :string, :select then :string
-        else :string
         end
       end
     end
