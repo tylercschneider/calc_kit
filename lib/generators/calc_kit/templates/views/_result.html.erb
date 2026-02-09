@@ -1,0 +1,16 @@
+<div id="calculator_result">
+  <%% if result %>
+    <div class="mt-6 rounded-2xl border border-green-200 bg-green-50 p-6 dark:bg-green-900/20 dark:border-green-800">
+      <h3 class="text-lg font-semibold mb-4">Result</h3>
+
+      <dl class="space-y-2">
+        <%% calculator.class.outputs.each do |output| %>
+          <div class="flex justify-between">
+            <dt class="font-medium"><%%= output.label %>:</dt>
+            <dd><%%= calc_kit_format_output(result[output.name], output.type) %></dd>
+          </div>
+        <%% end %>
+      </dl>
+    </div>
+  <%% end %>
+</div>

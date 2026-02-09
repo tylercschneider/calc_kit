@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+class Calculation < ApplicationRecord
+  include CalcKit::Model
+<% if scope_method -%>
+
+  belongs_to :<%= scope_method.to_s.sub("current_", "") %>, optional: true
+<% end -%>
+end

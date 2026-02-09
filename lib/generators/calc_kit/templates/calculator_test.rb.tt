@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class <%= class_name %>CalculatorTest < ActiveSupport::TestCase
+  def setup
+    @calculator = <%= class_name %>Calculator.new
+  end
+
+  test "calculator is registered" do
+    assert_equal <%= class_name %>Calculator, CalcKit.find(:<%= calculator_slug %>)
+  end
+
+  test "calculator has required metadata" do
+    assert_equal "<%= calculator_name %>", <%= class_name %>Calculator.calculator_name
+    assert_equal :<%= calculator_slug %>, <%= class_name %>Calculator.calculator_slug
+    assert_equal "1.0", <%= class_name %>Calculator.version
+  end
+
+  # test "validates required inputs" do
+  #   assert_not @calculator.valid?
+  #   assert_includes @calculator.errors[:price], "can't be blank"
+  # end
+
+  # test "calculates correctly with valid inputs" do
+  #   calculator = <%= class_name %>Calculator.new(price: 10.0, quantity: 5)
+  #   result = calculator.run
+  #
+  #   assert_not_nil result
+  #   assert_equal 50.0, result[:total]
+  # end
+end
