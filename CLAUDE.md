@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with this gem.
 
 ## Overview
 
-Calckit is a Ruby gem providing a declarative DSL for building calculators with automatic form generation, validation, and optional persistence. Works standalone with ActiveModel or as a Rails engine.
+CalcKit is a Ruby gem providing a declarative DSL for building calculators with automatic form generation, validation, and optional persistence. Works standalone with ActiveModel or as a Rails engine.
 
 ## Quick Start for Host Apps
 
@@ -12,17 +12,17 @@ Calckit is a Ruby gem providing a declarative DSL for building calculators with 
 
 ```ruby
 # Gemfile
-gem "calckit", github: "tylercschneider/calckit"
+gem "calc_kit", github: "tylercschneider/calc_kit"
 ```
 
 Then run the install generator:
 
 ```bash
-rails g calckit:install --model --scope=current_account
+rails g calc_kit:install --model --scope=current_account
 ```
 
 This creates:
-- `config/initializers/calckit.rb` - Configuration
+- `config/initializers/calc_kit.rb` - Configuration
 - `app/calculators/application_calculator.rb` - Base class
 - `app/models/calculation.rb` - Persistence model (with --model)
 - Migration for calculations table
@@ -30,7 +30,7 @@ This creates:
 ### Creating a Calculator
 
 ```bash
-rails g calckit:calculator shipping
+rails g calc_kit:calculator shipping
 ```
 
 Then edit `app/calculators/shipping_calculator.rb`:
@@ -57,7 +57,7 @@ class ShippingCalculator < ApplicationCalculator
   end
 end
 
-Calckit.register(ShippingCalculator)
+CalcKit.register(ShippingCalculator)
 ```
 
 ### Input Types
@@ -102,12 +102,12 @@ input :name, :type,
 ```ruby
 class CalculatorsController < ApplicationController
   def show
-    @calculator_class = Calckit.find(params[:slug])
+    @calculator_class = CalcKit.find(params[:slug])
     @calculator = @calculator_class.new(calculator_params)
   end
 
   def create
-    @calculator_class = Calckit.find(params[:slug])
+    @calculator_class = CalcKit.find(params[:slug])
     @calculator = @calculator_class.new(calculator_params)
     @result = @calculator.run
     # ...
@@ -126,9 +126,9 @@ end
 
 ```ruby
 # Registry
-Calckit.find(:slug)           # Find calculator by slug
-Calckit.all                   # All registered calculators
-Calckit.register(MyCalc)      # Register a calculator
+CalcKit.find(:slug)           # Find calculator by slug
+CalcKit.all                   # All registered calculators
+CalcKit.register(MyCalc)      # Register a calculator
 
 # Calculator class methods
 MyCalculator.calculator_name  # "My Calculator"
@@ -157,7 +157,7 @@ bundle exec rake test
 ### File Structure
 
 ```
-lib/calckit/
+lib/calc_kit/
 ├── base.rb              # Calculator base class
 ├── dsl.rb               # DSL macros (input, output, version)
 ├── registry.rb          # Calculator lookup
@@ -173,12 +173,12 @@ lib/calckit/
 
 ### Adding a New Input Type
 
-1. Add type mapping in `lib/calckit/dsl.rb` `type_for_attribute` method
+1. Add type mapping in `lib/calc_kit/dsl.rb` `type_for_attribute` method
 2. Add rendering logic in generator view templates
-3. Add formatting in `lib/calckit/rails/view_helpers.rb` if needed
+3. Add formatting in `lib/calc_kit/rails/view_helpers.rb` if needed
 4. Add tests
 
 ### Adding a New Output Type
 
-1. Add formatting in `lib/calckit/rails/view_helpers.rb` `calckit_format_output` method
+1. Add formatting in `lib/calc_kit/rails/view_helpers.rb` `calc_kit_format_output` method
 2. Add tests

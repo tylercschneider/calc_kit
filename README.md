@@ -1,4 +1,4 @@
-# Calckit
+# CalcKit
 
 A Ruby gem providing a declarative DSL for building calculators with automatic form generation, validation, and optional persistence. Works standalone with ActiveModel or as a Rails engine.
 
@@ -7,13 +7,13 @@ A Ruby gem providing a declarative DSL for building calculators with automatic f
 Add to your Gemfile:
 
 ```ruby
-gem "calckit"
+gem "calc_kit"
 ```
 
 Then run the install generator:
 
 ```bash
-rails g calckit:install
+rails g calc_kit:install
 ```
 
 Options:
@@ -49,7 +49,7 @@ class PriceCalculator < ApplicationCalculator
   end
 end
 
-Calckit.register(PriceCalculator)
+CalcKit.register(PriceCalculator)
 ```
 
 ### Input Types
@@ -103,7 +103,7 @@ result = calc.run!
 
 ```ruby
 class CalculatorsController < ApplicationController
-  include Calckit::ControllerHelpers
+  include CalcKit::ControllerHelpers
 
   def show
     @calculator_class = find_calculator_class(params[:slug])
@@ -128,22 +128,22 @@ end
 
 ```erb
 <%# Resolve callable defaults %>
-<%= calckit_resolve_default(input.default) %>
+<%= calc_kit_resolve_default(input.default) %>
 
 <%# Format output values %>
-<%= calckit_format_output(result[:total], :currency) %>
+<%= calc_kit_format_output(result[:total], :currency) %>
 
 <%# CSS classes %>
-<%= calckit_input_class(calculator, input) %>
-<%= calckit_label_class %>
-<%= calckit_error_class %>
+<%= calc_kit_input_class(calculator, input) %>
+<%= calc_kit_label_class %>
+<%= calc_kit_error_class %>
 ```
 
 ## Configuration
 
 ```ruby
-# config/initializers/calckit.rb
-Calckit.configure do |config|
+# config/initializers/calc_kit.rb
+CalcKit.configure do |config|
   # Path to calculator classes
   config.calculators_path = "app/calculators"
 
@@ -172,11 +172,11 @@ end
 ## Generators
 
 ```bash
-# Install calckit
-rails g calckit:install
+# Install calc_kit
+rails g calc_kit:install
 
 # Generate a new calculator
-rails g calckit:calculator shipping
+rails g calc_kit:calculator shipping
 ```
 
 ## Roadmap

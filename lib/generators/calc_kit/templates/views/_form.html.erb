@@ -1,0 +1,79 @@
+<%%= form_with model: calculator,
+              url: calculator_path(slug: calculator.class.calculator_slug),
+              method: :post,
+              scope: :calculator,
+              data: { turbo_stream: true } do |f| %>
+
+  <%% calculator.class.inputs.each do |input| %>
+    <div class="form-group mb-4">
+      <%%= f.label input.name, class: calc_kit_label_class do %>
+        <%%= input.label %>
+        <%% if input.required? %><span class="text-red-500">*</span><%% end %>
+      <%% end %>
+
+      <%% case input.type %>
+      <%% when :date %>
+        <%%= f.date_field input.name,
+              class: calc_kit_input_class(calculator, input),
+              required: input.required?,
+              value: calculator.send(input.name) || calc_kit_resolve_default(input.default) %>
+
+      <%% when :integer %>
+        <%%= f.number_field input.name,
+              class: calc_kit_input_class(calculator, input),
+              required: input.required?,
+              min: input.min,
+              max: input.max,
+              step: 1,
+              placeholder: input.placeholder %>
+
+      <%% when :decimal %>
+        <%%= f.number_field input.name,
+              class: calc_kit_input_class(calculator, input),
+              required: input.required?,
+              min: input.min,
+              max: input.max,
+              step: input.step || "0.01",
+              placeholder: input.placeholder %>
+
+      <%% when :select %>
+        <%%= f.select input.name,
+              options_for_select(input.options_for_select, calculator.send(input.name) || input.default),
+              { include_blank: !input.required? },
+              class: calc_kit_input_class(calculator, input) %>
+
+      <%% when :boolean %>
+        <div class="flex items-center">
+          <%%= f.check_box input.name, class: "form-checkbox rounded" %>
+        </div>
+
+      <%% else %>
+        <%%= f.text_field input.name,
+              class: calc_kit_input_class(calculator, input),
+              required: input.required?,
+              placeholder: input.placeholder %>
+      <%% end %>
+
+      <%% if input.hint %>
+        <p class="text-gray-500 text-sm mt-1"><%%= input.hint %></p>
+      <%% end %>
+
+      <%% if calculator.errors[input.name].any? %>
+        <p class="<%%= calc_kit_error_class %>">
+          <%%= calculator.errors[input.name].join(", ") %>
+        </p>
+      <%% end %>
+    </div>
+  <%% end %>
+
+  <div class="form-group mt-6 flex items-center gap-4">
+    <%%= f.submit "Calculate", class: calc_kit_submit_class %>
+
+    <%% if defined?(user_signed_in?) && user_signed_in? %>
+      <label class="inline-flex items-center">
+        <%%= check_box_tag :save, "1", false, class: "form-checkbox rounded" %>
+        <span class="ml-2 text-sm">Save to my calculations</span>
+      </label>
+    <%% end %>
+  </div>
+<%% end %>
