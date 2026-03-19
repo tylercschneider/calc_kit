@@ -24,9 +24,8 @@ module CalcKit
 
     # Extract permitted params for a calculator
     def calculator_params_for(calculator_class)
-      return {} unless params[:calculator]
       permitted = calculator_class.inputs.map(&:name)
-      params.require(:calculator).permit(*permitted)
+      params.permit(*permitted).to_h.reject { |_, v| v.blank? }
     end
 
     # Save a calculation result

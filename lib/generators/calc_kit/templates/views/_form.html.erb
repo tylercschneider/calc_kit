@@ -1,7 +1,6 @@
 <%%= form_with model: calculator,
               url: calculator_path(slug: calculator.class.calculator_slug),
               method: :post,
-              scope: :calculator,
               data: { turbo_stream: true } do |f| %>
 
   <%% calculator.class.inputs.each do |input| %>
