@@ -40,6 +40,20 @@ module CalcKit
       end
     end
 
+    KEYSTONE_TYPE_MAP = {
+      string: :text,
+      integer: :number,
+      decimal: :number,
+      date: :date,
+      select: :select,
+      boolean: :checkbox
+    }.freeze
+
+    # Map CalcKit input type to keystone_ui form field type
+    def calc_kit_keystone_type(type)
+      KEYSTONE_TYPE_MAP.fetch(type, :text)
+    end
+
     # CSS classes for form elements
     def calc_kit_input_class(calculator, input)
       base = CalcKit.configuration.default_form_classes[:input]
