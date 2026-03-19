@@ -66,6 +66,36 @@ class CalcKit::ViewHelpersTest < Minitest::Test
     CalcKit.configuration.warn_on_version_mismatch = true
   end
 
+  # calc_kit_keystone_type tests
+
+  def test_keystone_type_maps_string_to_text
+    assert_equal :text, calc_kit_keystone_type(:string)
+  end
+
+  def test_keystone_type_maps_integer_to_number
+    assert_equal :number, calc_kit_keystone_type(:integer)
+  end
+
+  def test_keystone_type_maps_decimal_to_number
+    assert_equal :number, calc_kit_keystone_type(:decimal)
+  end
+
+  def test_keystone_type_maps_date_to_date
+    assert_equal :date, calc_kit_keystone_type(:date)
+  end
+
+  def test_keystone_type_maps_select_to_select
+    assert_equal :select, calc_kit_keystone_type(:select)
+  end
+
+  def test_keystone_type_maps_boolean_to_checkbox
+    assert_equal :checkbox, calc_kit_keystone_type(:boolean)
+  end
+
+  def test_keystone_type_defaults_to_text
+    assert_equal :text, calc_kit_keystone_type(:unknown)
+  end
+
   private
 
   def stub_calculation(version_mismatch:)

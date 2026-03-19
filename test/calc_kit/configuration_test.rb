@@ -31,13 +31,6 @@ class CalcKit::ConfigurationTest < Minitest::Test
     assert @config.warn_on_version_mismatch
   end
 
-  def test_default_form_classes
-    assert_equal "form-control", @config.default_form_classes[:input]
-    assert @config.default_form_classes[:label]
-    assert @config.default_form_classes[:error]
-    assert @config.default_form_classes[:submit]
-  end
-
   def test_setting_values
     @config.calculators_path = "lib/calculators"
     @config.scope_method = :current_user
