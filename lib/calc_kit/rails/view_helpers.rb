@@ -54,25 +54,6 @@ module CalcKit
       KEYSTONE_TYPE_MAP.fetch(type, :text)
     end
 
-    # CSS classes for form elements
-    def calc_kit_input_class(calculator, input)
-      base = CalcKit.configuration.default_form_classes[:input]
-      error = calculator.errors[input.name].any? ? "border-red-500" : ""
-      [base, error].reject(&:blank?).join(" ")
-    end
-
-    def calc_kit_label_class
-      CalcKit.configuration.default_form_classes[:label]
-    end
-
-    def calc_kit_error_class
-      CalcKit.configuration.default_form_classes[:error]
-    end
-
-    def calc_kit_submit_class
-      CalcKit.configuration.default_form_classes[:submit]
-    end
-
     # Returns a warning string if the calculation was made with a different
     # calculator version, or nil if versions match or warnings are disabled.
     def calc_kit_version_warning(calculation)
