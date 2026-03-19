@@ -116,8 +116,8 @@ class CalculatorsController < ApplicationController
   private
 
   def calculator_params
-    return {} unless params[:calculator]
-    params.require(:calculator).permit(*@calculator_class.inputs.map(&:name))
+    permitted = @calculator_class.inputs.map(&:name)
+    params.permit(*permitted).to_h.reject { |_, v| v.blank? }
   end
 end
 ```
